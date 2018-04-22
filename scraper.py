@@ -1,6 +1,6 @@
 from aio import ApiWrapper
 from bs4 import BeautifulSoup as bs
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 class CmcApiWrapper(ApiWrapper):
     BASE_URL = 'https://coinmarketcap.com'
@@ -25,7 +25,7 @@ class CmcApiWrapper(ApiWrapper):
 
 cmc = CmcApiWrapper()
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/volumes/<currency>', methods=['GET'])
 def get_volumes(currency):
@@ -33,5 +33,10 @@ def get_volumes(currency):
 
     return jsonify(volumes), 200
 
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('main.html')
+
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='127.0.0.1', port=5000, debug=True)

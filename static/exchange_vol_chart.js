@@ -4,50 +4,21 @@ function load_exchange_volume_chart(currency) {
         currency = "bitcoin";
     }
 
-    jsonfile = $.getJSON("http://127.0.0.1:5000/volumes/" + currency + "?callback=?", function(data) {
-
-        $.get(url, function (data) {
-            console.log(data);
-        });
+    $.getJSON("http://127.0.0.1:5000/volumes/" + currency, function(data) {
         clean_exchange_volume_data(data);
     });
-    if (jsonfile.status != 200) {
-        init_exchange_volume_chart(undefined);
-    }
-    // var url = "http://127.0.0.1:5000/volumes/" + currency + "?callback=?";
-
-    // $.get(url, function (data) {
-    //     console.log(data);
-    // // can use 'data' in here...
-    // });
-
-    console.log("load function");
 }
 
 function clean_exchange_volume_data(data) {
-    console.log("clean data")
     var exchanges = [];
     var volumes = [];
 
-    //json enters here!
+    console.log(data);
 
-    for (var i = 0; i < jsonfile.length; i++) {
-        var temp_ex = exchanges[i];
-        var temp_vol = volumes[i];
-
-        exchanges.push(jsonfile.exchange);
-        volumes.push(jsonfile.percentage);
+    for (var i = 0; i < data['volumes'].length; i++) {
+        exchanges.push(data['volumes'][i].exchange + '-' + data['volumes'][i].pair);
+        volumes.push(data['volumes'][i].percentage);
     }
-
-    console.log(jsonfile = " jsonfile")
-    console.log(exchanges[1] + " exchagnes")
-
-    /*exchanges = jsonfile.jsonarray.map(function(e) {
-        return e.exchange;
-    });
-    volumes = jsonfile.jsonarray.map(function(e) {
-        return e.volume;
-    });; **/
 
     cleaned_data = {
         labels: exchanges,
@@ -62,7 +33,7 @@ function clean_exchange_volume_data(data) {
  }
 
 function get_sample_volumes_data() {
-    console.log('sample data running')
+    console.log('sample data running');
     return {
         labels: ['Exchange A', 'Exchange B', 'Exchange C', 'Exchange D', 'Exchange E'],
         datasets: [{
@@ -80,8 +51,6 @@ function get_sample_volumes_data() {
 }
 
 function init_exchange_volume_chart(data) {
-
-    console.log(data);
 
     if (data == undefined) {
         data = get_sample_volumes_data();
