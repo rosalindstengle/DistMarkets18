@@ -22,6 +22,12 @@ window.onload = function() {
         if ($(this).val() == 'all' || $(this).val() == 'exchange_volume') {
             $('#currency').removeClass('hidden');
         }
+        if ($(this).val() == 'all' || $(this).val() == 'addresses') {
+            $('#network').removeClass('hidden');
+        }
+        if ($(this).val() == 'all' || $(this).val() == 'miners') {
+            $('#network').removeClass('hidden');
+        }
     });
 };
 
@@ -33,5 +39,11 @@ function chart_router() {
     }
     if (chart_type == 'all' || chart_type == 'exchange_volume') {
         load_exchange_volume_chart($('#currency').val());
+    }
+    if (chart_type == 'all' || chart_type == 'addresses') {
+        load_address_charts($('#network').val());
+    }
+    if (chart_type == 'all' || chart_type == 'miners') {
+        load_miners_charts($('#network').val());
     }
 }
