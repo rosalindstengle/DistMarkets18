@@ -8,6 +8,20 @@
     <script src="jquery.js"></script>
     <script src="main.js"></script>
 	<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+    }
+    #header {
+        height: 50px;
+        width: 100%;
+        border-bottom: 2px solid #7DABFF;
+        text-align: center;
+    }
+    #header p, #header input {
+        display: inline-block;
+    }
 	canvas {
 		-moz-user-select: none;
 		-webkit-user-select: none;
@@ -15,14 +29,42 @@
         display: inline-block !important;
         width: 50% !important;
 	}
+    input {
+        box-sizing: border-box;
+        height: 35px;
+        font-size: 20px;
+        border: 2px solid #7DABFF;
+        border-radius: 5px;
+        background-color: #FFFFFF;
+    }
+    input[type='text'] {
+        width: 400px;
+        padding-left: 10px;
+    }
+    input[type='button'] {
+        width: 100px;
+    }
+    input[type='button']:hover {
+        border-color: #333;
+        cursor: pointer;
+    }
+    input:focus {
+        outline: 0;
+    }
+    #clear_charts {
+        margin-right: 100px;
+    }
 	</style>
 </head>
 
 <body>
-    <input id='clear_charts' type='button' value='Clear'></input>
-    <p>Repo URL</p><input id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'></input>
-    <input id='get_data' type='button' value='Submit'></input>
-	<div id="chart_container" style="width: 100%"></div>
+    <div id='header'>
+        <input id='clear_charts' type='button' value='Clear'></input>
+        <p>Repo URL</p>
+        <input id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'></input>
+        <input id='get_data' type='button' value='Submit'></input>
+    </div>
+	<div id="chart_container"></div>
 </body>
 
 </html>
