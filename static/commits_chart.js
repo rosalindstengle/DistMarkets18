@@ -8,12 +8,15 @@ function load_commits_chart(url) {
     // https://github.com/<username>/<repo>
     var username = url.split('/')[3];
     var repo_name = url.split('/')[4];
+    var repo_id = username + "/" + repo_name
 
     // api.github.com/repos/:owner/:repo/stats/contributors
-    $.get("https://api.github.com/repos/" + username + "/" + repo_name + "/stats/contributors", clean_commits_data);
+    $.get("https://api.github.com/repos/" + repo_id + "/stats/contributors", function(data) {
+        clean_commits_data(repo_id, data);
+    });
 }
 
-function clean_commits_data(repo_data) {
+function clean_commits_data(repo_id, repo_data) {
     var labels = [];
     var commits = [];
     for (var i = 0; i < repo_data.length; i++) {
@@ -25,12 +28,12 @@ function clean_commits_data(repo_data) {
         labels: labels,
         datasets: [{
             label: 'Commits',
-            backgroundColor: window.chartColors.blue,
+            backgroundColor: Object.values(window.chartColors)[window.colorCount],
             data: commits
         }]
     }
 
-    init_commits_chart(cleaned_data);
+    init_commits_chart(repo_id, cleaned_data);
 }
 
 function get_sample_commits_data() {
@@ -38,7 +41,7 @@ function get_sample_commits_data() {
         labels: ['Dev A', 'Dev B', 'Dev C', 'Dev D', 'Dev E'],
         datasets: [{
             label: 'Additions',
-            backgroundColor: window.chartColors.green,
+            backgroundColor: Object.values(window.chartColors)[window.colorCount],
             data: [
                 randomScalingFactor(),
                 randomScalingFactor(),
@@ -48,7 +51,7 @@ function get_sample_commits_data() {
             ]
         }, {
             label: 'Deletions',
-            backgroundColor: window.chartColors.red,
+            backgroundColor: Object.values(window.chartColors)[window.colorCount],
             data: [
                 randomScalingFactor(),
                 randomScalingFactor(),
@@ -60,7 +63,7 @@ function get_sample_commits_data() {
     };
 }
 
-function init_commits_chart(data) {
+function init_commits_chart(repo_id, data) {
 
     if (data == null) {
         data = get_sample_commits_data()
@@ -79,7 +82,7 @@ function init_commits_chart(data) {
         options: {
             title: {
                 display: true,
-                text: 'Developer Commits'
+                text: 'Developer Commits - ' + repo_id
             },
             tooltips: {
                 mode: 'index',

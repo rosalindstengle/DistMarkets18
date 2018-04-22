@@ -5,11 +5,11 @@ function load_exchange_volume_chart(currency) {
     }
 
     $.getJSON("http://127.0.0.1:5000/volumes/" + currency, function(data) {
-        clean_exchange_volume_data(data);
+        clean_exchange_volume_data(currency, data);
     });
 }
 
-function clean_exchange_volume_data(data) {
+function clean_exchange_volume_data(currency, data) {
     var exchanges = [];
     var volumes = [];
 
@@ -26,12 +26,12 @@ function clean_exchange_volume_data(data) {
         labels: exchanges,
         datasets: [{
             label: "Exchange Volume",
-            backgroundColor: window.chartColors.blue,
+            backgroundColor: Object.values(window.chartColors)[window.colorCount],
             data: volumes
         }]
     }
 
-    init_exchange_volume_chart(cleaned_data);
+    init_exchange_volume_chart(currency, cleaned_data);
  }
 
 function get_sample_volumes_data() {
@@ -40,7 +40,7 @@ function get_sample_volumes_data() {
         labels: ['Exchange A', 'Exchange B', 'Exchange C', 'Exchange D', 'Exchange E'],
         datasets: [{
             label: 'Portion of total trading volume',
-            backgroundColor: window.chartColors.blue,
+            backgroundColor: Object.values(window.chartColors)[window.colorCount],
             data: [
                 randomScalingFactor(),
                 randomScalingFactor(),
@@ -52,7 +52,7 @@ function get_sample_volumes_data() {
     };
 }
 
-function init_exchange_volume_chart(data) {
+function init_exchange_volume_chart(currency, data) {
 
     if (data == undefined) {
         data = get_sample_volumes_data();
@@ -71,7 +71,7 @@ function init_exchange_volume_chart(data) {
         options: {
             title: {
                 display: true,
-                text: 'Volume by Exchange'
+                text: 'Volume by Exchange - ' + currency
             },
             tooltips: {
                 mode: 'index',

@@ -29,6 +29,8 @@ window.onload = function() {
             $('#network').removeClass('hidden');
         }
     });
+
+    window.colorCount = 0;
 };
 
 function chart_router() {
@@ -40,10 +42,12 @@ function chart_router() {
     if (chart_type == 'all' || chart_type == 'exchange_volume') {
         load_exchange_volume_chart($('#currency').val());
     }
-    if (chart_type == 'all' || chart_type == 'addresses') {
-        load_address_charts($('#network').val());
-    }
-    if (chart_type == 'all' || chart_type == 'miners') {
-        load_miners_charts($('#network').val());
-    }
+    // if (chart_type == 'all' || chart_type == 'addresses') {
+    //     load_address_charts($('#network').val());
+    // }
+    // if (chart_type == 'all' || chart_type == 'miners') {
+    //     load_miners_charts($('#network').val());
+    // }
+
+    window.colorCount = (window.colorCount + 1) % Object.values(window.chartColors).length;
 }
