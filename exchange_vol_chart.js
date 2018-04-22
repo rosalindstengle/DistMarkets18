@@ -1,10 +1,13 @@
 function load_exchange_volume_chart(currency) {
 
-    jsonfile = $.get("127.0.0.1:5000/volumes/" + currency,
-            clean_exchange_volume_data);
+    jsonfile = $.get("127.0.0.1:5000/volumes/" + currency);
+    clean_exchange_volume_data(jsonfile);
+
+    console.log("load function");
 }
 
 function clean_exchange_volume_data(data) {
+    console.log("clean data")
     var exchanges = [];
     var volumes = [];
     
