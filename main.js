@@ -71,12 +71,14 @@ function load_chart(data) {
         data = get_sample_data()
     }
 
-    if (window.myBar) {
-        window.myBar.destroy();
+    if (window.charts == undefined) {
+        window.charts = []
     }
 
-    var ctx = document.getElementById('canvas').getContext('2d');
-    window.myBar = new Chart(ctx, {
+    var new_chart = document.createElement("canvas");
+    var chart_container = document.getElementById("chart_container");
+    chart_container.prepend(new_chart);
+    window.charts.push(new Chart(new_chart.getContext('2d'), {
         type: 'bar',
         data: data,
         options: {
@@ -98,5 +100,5 @@ function load_chart(data) {
                 }]
             }
         }
-    });
+    }));
 }
