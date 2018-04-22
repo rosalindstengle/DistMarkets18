@@ -12,32 +12,47 @@ function clean_exchange_volume_data(data) {
     var volumes = [];
     
     //json enters here!
-    exchanges = jsonfile.jsonarray.map(function(e) {
+    
+    for (var i = 0; i < jsonfile.length; i++) {
+        var temp_ex = exchanges[i];
+        var temp_vol = volumes[i];
+
+        exchanges.push(jsonfile.exchange);
+        volumes.push(jsonfile.percentage);
+    }
+
+    console.log(jsonfile = " jsonfile")
+    console.log(exchanges[1] + " exchagnes")
+
+    /*exchanges = jsonfile.jsonarray.map(function(e) {
         return e.exchange;
     });
     volumes = jsonfile.jsonarray.map(function(e) {
         return e.volume;
-    });;
+    });; **/
 
     cleaned_data = {
         labels: exchanges,
         datasets: [{
             label: "Exchange Volume",
             backgroundColor: window.chartColors.blue,
-            data: exchanges
+            data: volumes
         }]
     }
 
     init_exchange_volume_chart(cleaned_data);
  }
 
- function get_sample_exchange_volume_data() {
+ function get_sample_volumes_data() {
+     console.log('sample data running')
     return {
-        labels: ['Exchange A', 'Exchange B', 'Exchange C'],
+        labels: ['Exchange A', 'Exchange B', 'Exchange C', 'Exchange D', 'Exchange E'],
         datasets: [{
-            label: "Volume",
-            backgroundColor: window.chartColors.green,
+            label: 'Portion of total trading volume',
+            backgroundColor: window.chartColors.blue,
             data: [
+                randomScalingFactor(),
+                randomScalingFactor(),
                 randomScalingFactor(),
                 randomScalingFactor(),
                 randomScalingFactor()
@@ -58,8 +73,8 @@ function init_exchange_volume_chart(data) {
 
     var new_chart = document.createElement("canvas");
     var chart_container = document.getElementById("chart_container");
-    var char_container = document.prepend(new_chart);
-    windowcharts.push(new Chart(new_chart.getContext('2d'), {
+    chart_container.prepend(new_chart);
+    window.charts.push(new Chart(new_chart.getContext('2d'), {
         type: 'bar',
         data: data,
         options: {
@@ -77,10 +92,9 @@ function init_exchange_volume_chart(data) {
                     stacked: true,
                 }],
                 yAxes: [{
-                    stacked: true,
+                    stacked: true
                 }]
             }
         }
     }));
 }
-
