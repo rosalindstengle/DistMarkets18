@@ -21,7 +21,7 @@ class CmcApiWrapper(ApiWrapper):
                 'pair': row_data[2]['data-sort'],
                 'percentage': row_data[5]['data-sort']
             })
-        return volumes
+        return {"volumes": volumes}
 
 cmc = CmcApiWrapper()
 
@@ -30,8 +30,8 @@ app = Flask(__name__)
 @app.route('/volumes/<currency>', methods=['GET'])
 def get_volumes(currency):
     volumes = cmc.get_volumes(currency)
+
     return jsonify(volumes), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-    
+    app.run(host='127.0.0.1', port=5000)

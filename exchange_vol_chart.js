@@ -1,7 +1,25 @@
 function load_exchange_volume_chart(currency) {
 
-    jsonfile = $.get("127.0.0.1:5000/volumes/" + currency);
-    clean_exchange_volume_data(jsonfile);
+    if (currency == '') {
+        currency = "bitcoin";
+    }
+
+    jsonfile = $.getJSON("http://127.0.0.1:5000/volumes/" + currency + "?callback=?", function(data) {
+
+        $.get(url, function (data) {
+            console.log(data);
+        });
+        clean_exchange_volume_data(data);
+    });
+    if (jsonfile.status != 200) {
+        init_exchange_volume_chart(undefined);
+    }
+    // var url = "http://127.0.0.1:5000/volumes/" + currency + "?callback=?";
+
+    // $.get(url, function (data) {
+    //     console.log(data);
+    // // can use 'data' in here...
+    // });
 
     console.log("load function");
 }
@@ -10,9 +28,9 @@ function clean_exchange_volume_data(data) {
     console.log("clean data")
     var exchanges = [];
     var volumes = [];
-    
+
     //json enters here!
-    
+
     for (var i = 0; i < jsonfile.length; i++) {
         var temp_ex = exchanges[i];
         var temp_vol = volumes[i];
@@ -43,8 +61,8 @@ function clean_exchange_volume_data(data) {
     init_exchange_volume_chart(cleaned_data);
  }
 
- function get_sample_volumes_data() {
-     console.log('sample data running')
+function get_sample_volumes_data() {
+    console.log('sample data running')
     return {
         labels: ['Exchange A', 'Exchange B', 'Exchange C', 'Exchange D', 'Exchange E'],
         datasets: [{
@@ -63,8 +81,10 @@ function clean_exchange_volume_data(data) {
 
 function init_exchange_volume_chart(data) {
 
-    if (data == null) {
-        data = get_sample_exchange_volume_data()
+    console.log(data);
+
+    if (data == undefined) {
+        data = get_sample_volumes_data();
     }
 
     if (window.charts == undefined) {
