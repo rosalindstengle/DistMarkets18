@@ -5,6 +5,8 @@
 	<title>DistMarkets Viz</title>
 	<script src="chart.js"></script>
 	<script src="utils.js"></script>
+    <script src="jquery.js"></script>
+    <script src="main.js"></script>
 	<style>
 	canvas {
 		-moz-user-select: none;
@@ -15,65 +17,11 @@
 </head>
 
 <body>
-	<div style="width: 75%">
+    <p>Repo URL</p><input id='repo_url' type='text'></input>
+    <input id='get_data' type='button' value='Submit'></input>
+	<div style="width: 100%">
 		<canvas id="canvas"></canvas>
 	</div>
-	<script>
-		var barChartData = {
-			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-			datasets: [{
-				label: 'Additions',
-				backgroundColor: window.chartColors.green,
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				]
-			}, {
-				label: 'Deletions',
-				backgroundColor: window.chartColors.red,
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				]
-			}]
-		};
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myBar = new Chart(ctx, {
-				type: 'bar',
-				data: barChartData,
-				options: {
-					title: {
-						display: true,
-						text: 'Developer Commits'
-					},
-					tooltips: {
-						mode: 'index',
-						intersect: false
-					},
-					responsive: true,
-					scales: {
-						xAxes: [{
-							stacked: true,
-						}],
-						yAxes: [{
-							stacked: true
-						}]
-					}
-				}
-			});
-		};
-	</script>
 </body>
 
 </html>
