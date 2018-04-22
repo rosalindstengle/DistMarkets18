@@ -3,12 +3,34 @@ window.onload = function() {
 
     $('#get_data').click(function() {
         repo_data = get_github_data($('#repo_url').value);
-        load_chart(repo_data);
     });
 };
 
 function get_github_data(url) {
-    return null;
+    // api.github.com/repos/:owner/:repo/stats/contributors
+    $.get("https://api.github.com/repos/rosalindstengle/HackCU2017/stats/contributors", clean_data);
+}
+
+function clean_data(repo_data) {
+    console.log(repo_data);
+
+    var labels = [];
+    var commits = [];
+    for (var i = 0; i < repo_data.length; i++) {
+        labels.push(repo_data[i].author.login);
+        commits.push(repo_data[i].total);
+    }
+
+    cleaned_data = {
+        labels: labels,
+        datasets: [{
+            label: 'Commits',
+            backgroundColor: window.chartColors.blue,
+            data: commits
+        }]
+    }
+
+    load_chart(cleaned_data);
 }
 
 function get_sample_data() {
@@ -42,6 +64,10 @@ function load_chart(data) {
 
     if (data == null) {
         data = get_sample_data()
+    }
+
+    if (window.myBar) {
+        window.myBar.destroy();
     }
 
     var ctx = document.getElementById('canvas').getContext('2d');
