@@ -1,4 +1,9 @@
 function load_commits_chart(url) {
+
+    if (url == '') {
+        url = 'https://github.com/bitcoin/bitcoin';
+    }
+
     // Parse URL - we need username and repo name
     // https://github.com/<username>/<repo>
     var username = url.split('/')[3];

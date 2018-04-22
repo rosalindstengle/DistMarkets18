@@ -15,12 +15,11 @@ window.onload = function() {
 
     // Changes fields based on chart type
     $('#chart_type').change(function() {
-        console.log("Shit");
         $('.query').addClass('hidden');
         if ($(this).val() == 'all' || $(this).val() == 'commits') {
             $('#repo_url').removeClass('hidden');
         }
-        else if ($(this).val() == 'all' || $(this).val() == 'exchange_volume') {
+        if ($(this).val() == 'all' || $(this).val() == 'exchange_volume') {
             $('#currency').removeClass('hidden');
         }
     });
@@ -31,5 +30,8 @@ function chart_router() {
 
     if (chart_type == 'all' || chart_type == 'commits') {
         load_commits_chart($('#repo_url').val());
+    }
+    if (chart_type == 'all' || chart_type == 'exchange_volume') {
+        load_exchange_volume_chart($('#currency').val());
     }
 }

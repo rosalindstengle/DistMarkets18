@@ -19,6 +19,8 @@
         width: 100%;
         border-bottom: 2px solid #7DABFF;
         text-align: center;
+        vertical-align: middle;
+        padding: auto;
     }
     #header p, #header input {
         display: inline-block;
@@ -33,6 +35,7 @@
     input, select {
         box-sizing: border-box;
         height: 35px;
+        margin-top: 7px;
         font-size: 20px;
         border: 2px solid #7DABFF;
         border-radius: 5px;
@@ -48,8 +51,10 @@
     select {
         width: 200px;
     }
-    input[type='button']:hover {
+    input:hover, select:hover {
         border-color: #333;
+    }
+    input[type='button']:hover {
         cursor: pointer;
     }
     input:focus, select:focus {
@@ -61,6 +66,10 @@
     .hidden {
         display: none !important;
     }
+    #chart_container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 	</style>
 </head>
 
@@ -69,12 +78,11 @@
         <input id='clear_charts' type='button' value='Clear'>
         <select id='chart_type' name="types">
             <option value="all">All</option>
-            <option value="commits">Commits</option>
+            <option value="commits" selected="selected">Commits</option>
             <option value="exchange_volume">Exchange Volume</option>
         </select>
-        <p>Repo URL</p>
-        <input class='query' id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'>
-        <input class='query hidden' id='currency' type='text' value='Bitcoin'>
+        <input class='query' id='repo_url' type='text' placeholder='https://github.com/bitcoin/bitcoin'>
+        <input class='query hidden' id='currency' type='text' placeholder='Bitcoin'>
         <input id='get_data' type='button' value='Submit'>
     </div>
 	<div id="chart_container"></div>
