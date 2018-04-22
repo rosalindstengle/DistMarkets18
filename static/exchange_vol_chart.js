@@ -13,10 +13,12 @@ function clean_exchange_volume_data(data) {
     var exchanges = [];
     var volumes = [];
 
-    console.log(data);
+    data['volumes'].sort(function(a, b) {
+        return a.percentage - b.percentage;
+    });
 
     for (var i = 0; i < data['volumes'].length; i++) {
-        exchanges.push(data['volumes'][i].exchange + '-' + data['volumes'][i].pair);
+        exchanges.push(data['volumes'][i].exchange + ' - ' + data['volumes'][i].pair);
         volumes.push(data['volumes'][i].percentage);
     }
 
