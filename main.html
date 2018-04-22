@@ -6,6 +6,7 @@
 	<script src="chart.js"></script>
 	<script src="utils.js"></script>
     <script src="jquery.js"></script>
+    <script src="commits_chart.js"></script>
     <script src="main.js"></script>
 	<style>
     html, body {
@@ -29,7 +30,7 @@
         display: inline-block !important;
         width: 50% !important;
 	}
-    input {
+    input, select {
         box-sizing: border-box;
         height: 35px;
         font-size: 20px;
@@ -48,7 +49,7 @@
         border-color: #333;
         cursor: pointer;
     }
-    input:focus {
+    input:focus, select:focus {
         outline: 0;
     }
     #clear_charts {
@@ -59,10 +60,14 @@
 
 <body>
     <div id='header'>
-        <input id='clear_charts' type='button' value='Clear'></input>
+        <input id='clear_charts' type='button' value='Clear'>
+        <select id='chart_type' name="types">
+            <option value="all">All</option>
+            <option value="commits">Commits</option>
+        </select>
         <p>Repo URL</p>
-        <input id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'></input>
-        <input id='get_data' type='button' value='Submit'></input>
+        <input id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'>
+        <input id='get_data' type='button' value='Submit'>
     </div>
 	<div id="chart_container"></div>
 </body>
