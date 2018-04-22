@@ -2,17 +2,22 @@ window.onload = function() {
     load_chart();
 
     $('#get_data').click(function() {
-        repo_data = get_github_data($('#repo_url').value);
+        repo_data = get_github_data($('#repo_url').val());
     });
 };
 
 function get_github_data(url) {
+    // Parse URL - we need username and repo name
+    // https://github.com/<username>/<repo>
+    var username = url.split('/')[3];
+    var repo_name = url.split('/')[4];
+
     // api.github.com/repos/:owner/:repo/stats/contributors
-    $.get("https://api.github.com/repos/rosalindstengle/HackCU2017/stats/contributors", clean_data);
+    $.get("https://api.github.com/repos/" + username + "/" + repo_name + "/stats/contributors", clean_data);
 }
 
 function clean_data(repo_data) {
-    console.log(repo_data);
+    // console.log(repo_data);
 
     var labels = [];
     var commits = [];
