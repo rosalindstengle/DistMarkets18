@@ -1,8 +1,19 @@
 window.onload = function() {
+    // Loads sample data
     load_chart();
 
+    // Loads data from the repo of the specified URL
     $('#get_data').click(function() {
         repo_data = get_github_data($('#repo_url').val());
+    });
+
+    // Clears visible charts
+    $('#clear_charts').click(function() {
+        for (var i = 0; i < window.charts.length; i++) {
+            window.charts[i].destroy();
+        }
+        window.charts = [];
+        document.getElementById('chart_container').innerHTML = '';
     });
 };
 

@@ -12,12 +12,15 @@
 		-moz-user-select: none;
 		-webkit-user-select: none;
 		-ms-user-select: none;
+        display: inline-block !important;
+        width: 50% !important;
 	}
 	</style>
 </head>
 
 <body>
-    <p>Repo URL</p><input id='repo_url' type='text' value='https://github.com/facebook/react'></input>
+    <input id='clear_charts' type='button' value='Clear'></input>
+    <p>Repo URL</p><input id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'></input>
     <input id='get_data' type='button' value='Submit'></input>
 	<div id="chart_container" style="width: 100%"></div>
 </body>
