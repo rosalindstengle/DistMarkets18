@@ -45,6 +45,9 @@
     input[type='button'] {
         width: 100px;
     }
+    select {
+        width: 200px;
+    }
     input[type='button']:hover {
         border-color: #333;
         cursor: pointer;
@@ -55,6 +58,9 @@
     #clear_charts {
         margin-right: 100px;
     }
+    .hidden {
+        display: none !important;
+    }
 	</style>
 </head>
 
@@ -64,9 +70,11 @@
         <select id='chart_type' name="types">
             <option value="all">All</option>
             <option value="commits">Commits</option>
+            <option value="exchange_volume">Exchange Volume</option>
         </select>
         <p>Repo URL</p>
-        <input id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'>
+        <input class='query' id='repo_url' type='text' value='https://github.com/bitcoin/bitcoin'>
+        <input class='query hidden' id='currency' type='text' value='Bitcoin'>
         <input id='get_data' type='button' value='Submit'>
     </div>
 	<div id="chart_container"></div>
